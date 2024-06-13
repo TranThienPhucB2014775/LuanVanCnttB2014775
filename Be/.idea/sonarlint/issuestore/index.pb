@@ -25,3 +25,5 @@ z
 Jconfig-service/src/test/java/com/config/ConfigServiceApplicationTests.java,8\4\843a0604dee66691765c3190926e9f199cd37eb2
 u
 Econfig-service/src/main/java/com/config/ConfigServiceApplication.java,4\f\4f7db1d311c4b858495b639d40eb75cdaf258807
+H
+identity-service/pom.xml,2\a\2a25bf67c78cf57a8b93e7159ca667b833b89e06

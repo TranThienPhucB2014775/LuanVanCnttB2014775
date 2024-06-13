@@ -1,0 +1,12 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /identity
+
+build:
+  version: "1.0"
+
+accounts:
+  contactDetails:
+    name: "Tran Thien Phuc - Developer"
+    email: "phuctt.dev@gmail.com"
