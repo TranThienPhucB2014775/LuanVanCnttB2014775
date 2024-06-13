@@ -1,0 +1,60 @@
+package com.identity.controller;
+
+import com.identity.dto.ApiResponse;
+import com.identity.dto.Request.AuthenticationRequest;
+import com.identity.dto.Request.IntrospectRequest;
+import com.identity.dto.Request.LogoutRequest;
+import com.identity.dto.Request.RefreshRequest;
+import com.identity.dto.Response.AuthenticationResponse;
+import com.identity.dto.Response.IntrospectResponse;
+import com.identity.service.AuthenticationService;
+import com.identity.service.UserService;
+import com.nimbusds.jose.JOSEException;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.text.ParseException;
+
+@RestController
+@RequestMapping("/auth")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
+public class AuthController {
+
+    UserService userService;
+    AuthenticationService authenticationService;
+
+    @PostMapping("/token")
+    public ApiResponse<AuthenticationResponse> login(@RequestBody AuthenticationRequest authenticationRequest) {
+        log.info("Login authentication request: {}", authenticationRequest);
+        var result = authenticationService.authenticate(authenticationRequest);
+        return ApiResponse.<AuthenticationResponse>builder().result(result).build();
+    }
+
+    @PostMapping("/introspect")
+    ApiResponse<IntrospectResponse> introspect(@RequestBody IntrospectRequest request)
+            throws ParseException, JOSEException {
+        var result = authenticationService.introspect(request);
+        return ApiResponse.<IntrospectResponse>builder().result(result).build();
+    }
+
+    @PostMapping("/refresh")
+    ApiResponse<AuthenticationResponse> refresh(@RequestBody RefreshRequest request)
+            throws ParseException, JOSEException {
+        var result = authenticationService.refreshToken(request);
+        return ApiResponse.<AuthenticationResponse>builder().result(result).build();
+    }
+
+    @PostMapping("/logout")
+    ApiResponse<Void> logout(@RequestBody LogoutRequest request) throws ParseException, JOSEException {
+        authenticationService.logout(request);
+        return ApiResponse.<Void>builder().build();
+    }
+}
