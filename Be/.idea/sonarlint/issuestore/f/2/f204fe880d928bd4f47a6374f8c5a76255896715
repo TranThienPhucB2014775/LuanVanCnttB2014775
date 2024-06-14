@@ -1,0 +1,8 @@
+
+œ	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(äçÎ¹8ÄÜœ2J$81b1030b-ea0e-4a92-91d0-ffd50e17b0d9
+b
+java:S1128"@Remove this unused import 'com.profile.validator.DobConstraint'.(¡±èúÿÿÿÿ8ş¡è¦2
+]
+java:S1128"@Remove this unused import 'jakarta.validation.constraints.Size'.(çÀ…Í8ş¡è¦2
+H
+java:S1128"+Remove this unused import 'lombok.Builder'.(§’Ğß8ÿ¡è¦2

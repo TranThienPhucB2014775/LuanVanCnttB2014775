@@ -12,12 +12,14 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
@@ -26,15 +28,17 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/registration")
-    ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreateRequest request) {
+    ResponseEntity<ApiResponse<UserResponse>> createUser(@RequestBody @Valid UserCreateRequest request) {
 
         if (!request.getPassword().equals(request.getConfirmpassword())) {
             throw new AppException(ErrorCode.PASSWORD_NOT_MATCH);
         }
 
-        return ApiResponse.<UserResponse>builder()
-                .result(userService.createUser(request))
-                .build();
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(ApiResponse.<UserResponse>builder()
+                        .result(userService.createUser(request))
+                        .build());
     }
 
     @GetMapping("/list-user")
@@ -46,9 +50,11 @@ public class UserController {
     }
 
     @GetMapping("/{userEmail}")
-    ApiResponse<UserResponse> getAllUser(@PathVariable String userEmail) {
+    ApiResponse<UserResponse> getAllUser(
+            @PathVariable String userEmail,
+            @RequestHeader(value = "Token", defaultValue = "") String token) {
         return ApiResponse.<UserResponse>builder()
-                .result(userService.getUser(userEmail))
+                .result(userService.getUser(userEmail, token.replace("Bearer ", "")))
                 .build();
 
     }

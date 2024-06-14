@@ -1,5 +1,6 @@
 package com.identity.service;
 
+import com.identity.config.CustomJwtDecoder;
 import com.identity.constant.PredefinedRole;
 import com.identity.dto.Request.UserCreateRequest;
 import com.identity.dto.Response.UserResponse;
@@ -31,6 +32,7 @@ public class UserService {
     UserRepository userRepository;
     RoleRepository roleRepository;
     PasswordEncoder passwordEncoder;
+    CustomJwtDecoder customJwtDecoder;
 
     public UserResponse createUser(UserCreateRequest request) {
         log.info("Create user: ", request);
@@ -68,8 +70,14 @@ public class UserService {
         userRepository.save(user.get());
     }
 
-    public UserResponse getUser(String email) {
-        return UserMapper.userToUserResponse(userRepository.findByEmail(email)
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
+    public UserResponse getUser(String email, String token) {
+
+        var jwt = customJwtDecoder.decode(token);
+        if (jwt.getSubject().equals(email)) {
+            return UserMapper.userToUserResponse(userRepository.findByEmail(email)
+                    .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
+        } else {
+            throw new AppException(ErrorCode.UNAUTHENTICATED);
+        }
     }
 }

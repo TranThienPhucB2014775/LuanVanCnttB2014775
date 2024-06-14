@@ -1,0 +1,9 @@
+
+‚
+java:S1118
+":Add a private constructor to hide the implicit public one.(½òôÈüÿÿÿÿ8ƒº¨2J$60c7d0c5-4a0b-412e-944a-22a4920dc04d
+•	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§ĞÚËÿÿÿÿÿ8‡º¨2J$19c3c48e-9481-4112-afb3-1857a7b9b32b
+•	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êæâ¦şÿÿÿÿ8ˆº¨2J$0bff39c6-4be0-446e-b6a2-c13308002b0d
+	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(šõ¡/8‹º¨2J$32f6d75a-90b3-4a21-aa04-ea5c7e44d913
+o
+java:S1068"'Remove this unused "log" private field.(ÒíÜØúÿÿÿÿ8’¤Ã¨2J$1a3d23f5-22a3-45a6-8901-5de80c6a2347
