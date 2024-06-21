@@ -1,17 +1,17 @@
-//package com.profile.audit;
+// package com.profile.audit;
 //
-//import org.springframework.data.domain.AuditorAware;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.stereotype.Component;
+// import org.springframework.data.domain.AuditorAware;
+// import org.springframework.security.core.context.SecurityContextHolder;
+// import org.springframework.stereotype.Component;
 //
-//import java.util.Optional;
+// import java.util.Optional;
 //
-//@Component("auditAwareImpl")
-//public class AuditAwareImpl implements AuditorAware<String> {
+// @Component("auditAwareImpl")
+// public class AuditAwareImpl implements AuditorAware<String> {
 //
 //    @Override
 //    public Optional<String> getCurrentAuditor() {
 //        return Optional.ofNullable(
 //                SecurityContextHolder.getContext().getAuthentication().getName());
 //    }
-//}
+// }

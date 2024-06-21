@@ -1,23 +1,35 @@
 package com.profile.validator;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
-
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
+
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class DobValidator implements ConstraintValidator<DobConstraint, LocalDate> {
 
     private int min;
 
+
     @Override
     public boolean isValid(LocalDate value, ConstraintValidatorContext context) {
         if (Objects.isNull(value)) return true;
 
-        long years = ChronoUnit.YEARS.between(value, LocalDate.now());
+        Period period = Period.between(value, LocalDate.now());
 
-        return years >= min;
+        // Check if the year difference is less than min
+        if (period.getYears() < min) {
+            return false;
+        }
+
+        // If the year difference is exactly min, check if the current date is before the birthday in the min year
+        if (period.getYears() == min) {
+            return !(period.getMonths() > 0 || (period.getMonths() == 0 && period.getDays() > 0));
+        }
+
+        return true;
     }
 
     @Override

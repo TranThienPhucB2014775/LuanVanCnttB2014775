@@ -14,13 +14,19 @@ public class UserMapper {
     }
 
     public static UserResponse userToUserResponse(User user) {
-        UserResponse userResponse = new UserResponse();
-        userResponse.setUsername(user.getUsername());
-        userResponse.setEmail(user.getEmail());
-        userResponse.setRoles(RoleMapper.map(user.getRoles()));
-        userResponse.setEnable(user.getEnabled());
-        userResponse.setEnable(user.getEnabled());
-        return userResponse;
+        return UserResponse.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .username(user.getUsername())
+                .createdDate(user.getCreatedAt())
+                .Enable(user.getEnabled())
+                .build();
+        //        UserResponse userResponse = new UserResponse();
+        //        userResponse.setUsername(user.getUsername());
+        //        userResponse.setEmail(user.getEmail());
+        //        userResponse.setRoles(RoleMapper.map(user.getRoles()));
+        //        userResponse.setEnable(user.getEnabled());
+        //        userResponse.setEnable(user.getEnabled());
+        //        return userResponse;
     }
-
 }

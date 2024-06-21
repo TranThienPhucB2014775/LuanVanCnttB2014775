@@ -1,12 +1,12 @@
 package com.profile.entity;
 
+import java.time.LocalDate;
 
 import jakarta.persistence.*;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-
-import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -22,9 +22,6 @@ public class Profile extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "profileId", unique = true)
     String id;
-
-    @Column(name = "userId", unique = true)
-    String userId;
 
     LocalDate dob;
     String city;

@@ -38,3 +38,6 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+
+error:
+  code: 2000

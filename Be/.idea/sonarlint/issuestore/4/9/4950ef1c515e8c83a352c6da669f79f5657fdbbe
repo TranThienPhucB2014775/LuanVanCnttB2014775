@@ -1,5 +1,0 @@
-
-†	java:S112r"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒιόÿÿÿÿJ$bfcb8817-d384-4470-9946-8ecb72d06e8c
-	java:S1165"URename this field "SIGNER_KEY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(λό§™J$0e92ecac-458c-4ca3-883c-89d7c9d7b50c
-”	java:S1169"YRename this field "VALID_DURATION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ηοJ$d6fa9aa9-f671-4dac-8796-c0485c3c8a6c
-	java:S116="_Rename this field "REFRESHABLE_DURATION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µΠ²J$95e34734-b72c-420f-819f-692ebe2baf3a

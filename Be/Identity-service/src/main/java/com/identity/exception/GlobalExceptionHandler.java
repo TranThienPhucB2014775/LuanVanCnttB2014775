@@ -1,18 +1,31 @@
 package com.identity.exception;
 
-import com.identity.dto.ApiResponse;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import feign.FeignException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.util.Map;
+import com.identity.dto.ApiResponse;
+
+import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice
 @Slf4j
+@RequiredArgsConstructor
 public class GlobalExceptionHandler {
 
     private static final String MIN_ATTRIBUTE = "min";
+
+    @Value("${error.code}")
+    private int codeError;
 
     @ExceptionHandler(value = Exception.class)
     ResponseEntity<ApiResponse> handlingRuntimeException(RuntimeException exception) {
@@ -30,53 +43,66 @@ public class GlobalExceptionHandler {
         ErrorCode errorCode = exception.getErrorCode();
         ApiResponse apiResponse = new ApiResponse();
 
-        apiResponse.setCode(errorCode.getCode());
+        apiResponse.setCode(errorCode.getCode() + codeError);
         apiResponse.setResult(errorCode.getMessage());
 
         return ResponseEntity.status(errorCode.getStatusCode()).body(apiResponse);
     }
 
-//    @ExceptionHandler(value = AccessDeniedException.class)
-//    ResponseEntity<ApiResponse> handlingAccessDeniedException(AccessDeniedException exception) {
-//        ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
-//
-//        return ResponseEntity.status(errorCode.getStatusCode())
-//                .body(ApiResponse.builder()
-//                        .code(errorCode.getCode())
-//                        .result(errorCode.getMessage())
-//                        .build());
-//    }
-
-//    @ExceptionHandler(value = MethodArgumentNotValidException.class)
-//    ResponseEntity<ApiResponse> handlingValidation(MethodArgumentNotValidException exception) {
-//        String enumKey = exception.getFieldError().getDefaultMessage();
-//
-//        ErrorCode errorCode = ErrorCode.INVALID_KEY;
-//        Map<String, Object> attributes = null;
-//        try {
-//            errorCode = ErrorCode.valueOf(enumKey);
-//
-//            var constraintViolation =
-//                    exception.getBindingResult().getAllErrors().getFirst().unwrap(ConstraintViolation.class);
-//
-//            attributes = constraintViolation.getConstraintDescriptor().getAttributes();
-//
-//            log.info(attributes.toString());
-//
-//        } catch (IllegalArgumentException e) {
-//
-//        }
-//
+//    @ExceptionHandler(value = AuthorizationDeniedException.class)
+//    ResponseEntity<ApiResponse> handlingAuthorizationDeniedException(AuthorizationDeniedException exception) {
 //        ApiResponse apiResponse = new ApiResponse();
 //
-//        apiResponse.setCode(errorCode.getCode());
-//        apiResponse.setResult(
-//                Objects.nonNull(attributes)
-//                        ? mapAttribute(errorCode.getMessage(), attributes)
-//                        : errorCode.getMessage());
+//        apiResponse.setCode(ErrorCode.AUTHORIZATION_DENIED.getCode());
+//        apiResponse.setResult(ErrorCode.AUTHORIZATION_DENIED.getMessage());
 //
-//        return ResponseEntity.badRequest().body(apiResponse);
+//        return ResponseEntity.status(ErrorCode.AUTHORIZATION_DENIED.getStatusCode()).body(apiResponse);
 //    }
+
+    @ExceptionHandler(value = FeignException.class)
+    ResponseEntity<ApiResponse> handlingFeignException(FeignException exception) {
+        log.info("FeignException: ", exception.contentUTF8());
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(mapper.readValue(exception.contentUTF8(), ApiResponse.class));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    //    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    //    ResponseEntity<ApiResponse> handlingValidation(MethodArgumentNotValidException exception) {
+    //        String enumKey = exception.getFieldError().getDefaultMessage();
+    //
+    //        ErrorCode errorCode = ErrorCode.INVALID_KEY;
+    //        Map<String, Object> attributes = null;
+    //        try {
+    //            errorCode = ErrorCode.valueOf(enumKey);
+    //
+    //            var constraintViolation =
+    //                    exception.getBindingResult().getAllErrors().getFirst().unwrap(ConstraintViolation.class);
+    //
+    //            attributes = constraintViolation.getConstraintDescriptor().getAttributes();
+    //
+    //            log.info(attributes.toString());
+    //
+    //        } catch (IllegalArgumentException e) {
+    //
+    //        }
+    //
+    //        ApiResponse apiResponse = new ApiResponse();
+    //
+    //        apiResponse.setCode(errorCode.getCode());
+    //        apiResponse.setResult(
+    //                Objects.nonNull(attributes)
+    //                        ? mapAttribute(errorCode.getMessage(), attributes)
+    //                        : errorCode.getMessage());
+    //
+    //        return ResponseEntity.badRequest().body(apiResponse);
+    //    }
 
     private String mapAttribute(String message, Map<String, Object> attributes) {
         String minValue = String.valueOf(attributes.get(MIN_ATTRIBUTE));

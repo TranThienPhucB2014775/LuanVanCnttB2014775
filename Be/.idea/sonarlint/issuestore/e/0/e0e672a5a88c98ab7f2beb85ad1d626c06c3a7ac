@@ -1,6 +1,0 @@
-
-	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(®°ωϊÿÿÿÿJ$4c75a1de-8a91-42f1-9355-660ecd88e0a6
-†	java:S112r"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒιόÿÿÿÿJ$1ea753db-92b7-4030-a2be-840f71e65697
-	java:S1165"URename this field "SIGNER_KEY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(λό§™J$e2df412d-7c82-45c7-b34b-bd1ff46850dc
-”	java:S1169"YRename this field "VALID_DURATION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ηοJ$9ed76a25-eb38-4ec7-9722-ff5774784278
-	java:S116="_Rename this field "REFRESHABLE_DURATION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µΠ²J$bb48a2e4-424d-4227-a18f-b052bb31307a

@@ -1,6 +1,7 @@
 package com.gateway.config;
 
-import com.gateway.repository.IdentityClient;
+import java.util.List;
+
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
-
-import java.util.List;
+import com.gateway.repository.IdentityClient;
 
 @Configuration
 public class WebClientConfiguration {
@@ -42,8 +42,9 @@ public class WebClientConfiguration {
 
     @Bean
     IdentityClient identityClient(WebClient webClient) {
-        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory
-                .builderFor(WebClientAdapter.create(webClient)).build();
+        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builderFor(
+                        WebClientAdapter.create(webClient))
+                .build();
 
         return httpServiceProxyFactory.createClient(IdentityClient.class);
     }

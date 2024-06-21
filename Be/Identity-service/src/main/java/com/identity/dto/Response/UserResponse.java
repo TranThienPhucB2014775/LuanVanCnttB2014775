@@ -1,9 +1,11 @@
 package com.identity.dto.Response;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -11,8 +13,13 @@ import java.util.Set;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserResponse {
+    String id;
     String email;
     String username;
     Boolean Enable;
-    Set<RoleResponse> roles;
+    LocalDate dob;
+    String city;
+    String address;
+    LocalDateTime createdDate;
+    //    Set<RoleResponse> roles;
 }

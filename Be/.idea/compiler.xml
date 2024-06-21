@@ -14,9 +14,6 @@
         <module name="identity-service" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="profile" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -24,7 +21,6 @@
       <module name="config-service" options="-parameters" />
       <module name="euruka-service" options="-parameters" />
       <module name="identity-service" options="-parameters" />
-      <module name="profile" options="-parameters" />
       <module name="profile-service" options="-parameters" />
     </option>
   </component>

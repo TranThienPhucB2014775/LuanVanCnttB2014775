@@ -1,3 +1,6 @@
 
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Î²ª˜úÿÿÿÿ
-f	java:S116"QRename this field "Enable" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(í‚Ðí
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Î²ª˜úÿÿÿÿJ$969c9b49-f37d-4240-9cb4-e371f368dc65
+Œ	java:S116"QRename this field "Enable" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(í‚ÐíJ$346b4dbc-18ac-4f63-9400-570db4abe5de
+|	java:S125"<This block of commented-out lines of code should be removed.(Üž€éúÿÿÿÿJ$a8f0de3f-ebbd-4731-91ba-96aac3aa9032
+H
+java:S1128"+Remove this unused import 'java.util.Date'.(¸…¼ü8Žš°®ƒ2
